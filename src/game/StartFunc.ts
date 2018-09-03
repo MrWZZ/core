@@ -1,0 +1,4 @@
+enum StartFunc {
+    openStartView,
+    closeStartView
+}
