@@ -93,7 +93,6 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected createGameScene(): void {
-        let scaleMode = egret.StageScaleMode.SHOW_ALL
         Manager.gameInit();
         Manager.Controller.executeFunc(EmController.StartController,StartFunc.openStartView);
     }

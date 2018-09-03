@@ -10,8 +10,8 @@ class BaseView extends eui.Component{
 
     public constructor($controller:BaseController,$layer:BaseLayer) {
         super();
-        this.percentWidth = 100;
-        this.percentHeight = 100;
+        this.horizontalCenter = 0;
+        this.verticalCenter = 0;
         this._complete = false;
         this._completeFunc = [];
         this.layer = $layer;
