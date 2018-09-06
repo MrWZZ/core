@@ -159,7 +159,6 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
-        var scaleMode = egret.StageScaleMode.SHOW_ALL;
         Manager.gameInit();
         Manager.Controller.executeFunc(EmController.StartController, StartFunc.openStartView);
     };

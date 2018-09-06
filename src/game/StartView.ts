@@ -1,11 +1,16 @@
 class StartView extends BaseView {
 
-    public constructor(controller,layer) {
-        super(controller,layer);
-        this.skinName = SkinPath.StartSkin;
+    private btn:eui.Button;
+
+    public start():void {
+        this.btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onBtn,this);
+        Tool.NoviceGuide.finger(this.btn);
+        Tool.NoviceGuide.shapeCutout(this.btn);
     }
 
-    public open():void {
-        super.open();
+    private n = 0;
+    public onBtn():void {
+        
     }
+
 }

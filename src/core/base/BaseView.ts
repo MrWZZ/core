@@ -8,8 +8,11 @@ class BaseView extends eui.Component{
     //视图所在层
     public layer:BaseLayer;
 
-    public constructor($controller:BaseController,$layer:BaseLayer) {
+    public constructor($controller:BaseController,$layer:BaseLayer,$skinPath:string) {
         super();
+        // 资源是否加载完成监听
+        this.addEventListener(eui.UIEvent.COMPLETE,this.complete,this);
+
         this.horizontalCenter = 0;
         this.verticalCenter = 0;
         this._complete = false;
@@ -17,14 +20,21 @@ class BaseView extends eui.Component{
         this.layer = $layer;
         // 控制器注册
         this.controller = $controller;
-        // 资源是否加载完成监听
-        this.addEventListener(eui.UIEvent.COMPLETE,this.complete,this);
+        // 皮肤加载
+        this.skinName = $skinPath;
     }
     
     private complete():void {
         this._complete = true;
         this.removeEventListener(eui.UIEvent.COMPLETE,this.complete,this);
+        this.addEventListener(egret.Event.ENTER_FRAME,this.firstFrame,this);
+    }
+
+    //加载完成后的第一帧
+    private firstFrame():void {
+        this.start();
         this.executeCompleteFunc();
+        this.removeEventListener(egret.Event.ENTER_FRAME,this.firstFrame,this);
     }
 
     private executeCompleteFunc():void {
@@ -43,7 +53,11 @@ class BaseView extends eui.Component{
      *  @param $args 调用方法的参数
      */
     public registerCompleteFunc($envir:any,$func:Function,...$args:any[]):void {
-        this._completeFunc.push({envir:$envir,funs:$func,args:$args});
+        if(this.isComplete) {
+            $func.apply($envir,$args);
+        } else {
+            this._completeFunc.push({envir:$envir,funs:$func,args:$args});
+        }
     }
 
     /**
@@ -60,10 +74,10 @@ class BaseView extends eui.Component{
         this.layer.addChild(this);
     }
 
-      /**
-     * 更新视图
+    /**
+     * 视图加载完成后自动调用
      */
-    public update(...args):void { }
+    public start(...args):void { }
 
     /**
      * 关闭视图

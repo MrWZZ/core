@@ -20,4 +20,15 @@ class Tool {
         if(this._pool == null) this._pool = new Pool();
         return this._pool;
     }
+
+    //新手引导
+    private static _noviceGuide:NoviceGuide;
+    public static get NoviceGuide() {
+        if(this._noviceGuide == null) this._noviceGuide = new NoviceGuide();
+        return this._noviceGuide;
+    }
+    //删除引导
+    public static destoryNoviceGuide() {
+        this._noviceGuide = null;
+    }
 }

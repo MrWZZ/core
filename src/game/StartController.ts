@@ -9,7 +9,7 @@ class StartController extends BaseController {
     }
 
     public openStartView() {
-        this.StartView = new StartView(this,Manager.Layer.main);
+        this.StartView = new StartView(this,Manager.Layer.main,SkinPath.StartSkin);
         this.StartView.open();
     }
 
