@@ -1,17 +1,15 @@
-class NoviceGuide {
+abstract class NoviceGuide {
 
     /**
      * 生成圆形镂空遮罩
      */
-    public shapeCutout($target:eui.Component) {
+    public static shapeCutout($target:eui.Component):egret.DisplayObject {
 
         let dis = new egret.DisplayObjectContainer();
         //遮罩
         let rect = new egret.Shape();
         rect.graphics.beginFill(0x000);
-        //遮罩大小默认为新手引导层大小
-        let guideLayer = Manager.Layer.guide;
-        rect.graphics.drawRect(0,0,guideLayer.width,guideLayer.height);
+        rect.graphics.drawRect(0,0,egret.MainContext.instance.stage.width,egret.MainContext.instance.stage.height);
         rect.graphics.endFill();
         rect.alpha = 0.5;
         dis.addChild(rect);
@@ -33,14 +31,13 @@ class NoviceGuide {
         bmp.touchEnabled = true;
         bmp.pixelHitTest = true;
         
-        //默认将遮罩放进新手引导层中
-        Manager.Layer.guide.addChild(bmp);
+        return bmp;
     }
     
     /**
      * 指引图标
      */
-    public finger($target:eui.Component) {
+    public static finger($target:eui.Component,$imgPath:string):egret.DisplayObject {
         let globalPoint = $target.localToGlobal(0,0);
 
         let img = new eui.Image();
@@ -49,7 +46,7 @@ class NoviceGuide {
         img.height = 100;
         img.x = globalPoint.x;
         img.y = globalPoint.y;
-        //img.source = [图片路径];
+        img.source = $imgPath;
 
         //缓动
         let tw = egret.Tween.get(img,{loop:true});
@@ -58,8 +55,7 @@ class NoviceGuide {
         tw.to({x:globalPoint.x + $offset,y:globalPoint.y + $offset},$time).wait(100)
           .to({x:globalPoint.x,y:globalPoint.y},$time).wait(100);
         
-        //默认将遮罩放进新手引导层中
-        Manager.Layer.guide.addChild(img);
+        return img;
     }
  
 }

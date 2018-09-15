@@ -51,7 +51,7 @@ class LinkList<T> {
      */
     public shift():void {
         if(!this._count) {
-            Tool.Log.log("链表为空，无法删除。");
+            Log.log("链表为空，无法删除。");
             return;
         }
         this._count--;
@@ -68,7 +68,7 @@ class LinkList<T> {
      */
     public pop():void {
         if(!this._count) {
-            Tool.Log.log("链表为空，无法删除。");
+            Log.log("链表为空，无法删除。");
             return;
         }
         this._count--;

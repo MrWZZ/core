@@ -6,6 +6,19 @@ abstract class BaseController{
      // 该控制器使用的代理
     public proxy:BaseProxy;
 
+    public constructor() {
+        // 注册控制器的方法
+        let conName:string = this["__proto__"]["__class__"];
+        let end = conName.lastIndexOf("Controller");
+        let mainName = conName.slice(0,end);
+        let funcName = mainName + "Func";
+        let fun:any = egret.getDefinitionByName(funcName);
+        for(var k in fun) {
+            if(Number(k).toString() == "NaN") break; 
+            this.registerFunc(Number(k),this["__proto__"][fun[k]])
+        }
+    }
+
     /**
      * 注册本控制器的执行方法
      * @param $key 本控制器中方法key(EmControllerFunc)。
@@ -13,7 +26,7 @@ abstract class BaseController{
      */
     public registerFunc($key:number,$Func:Function) {
         if(this._funcs[$key]) {
-            Tool.Log.log(`${$key}:该方法已存在，无法重复注册。`);
+            Log.log(`${$key}:该方法已存在，无法重复注册。`);
             return;
         }
         this._funcs[$key] = $Func;
@@ -26,7 +39,7 @@ abstract class BaseController{
      */
     public executeFunc($key:number,...$param:any[]):any {
         if(!this._funcs[$key]) {
-            Tool.Log.warn(`${$key}:该方法不存在，无法调用该方法！`);
+            Log.warn(`${$key}:该方法不存在，无法调用该方法！`);
             return;
         }
         return this._funcs[$key].apply(this,$param);

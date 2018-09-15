@@ -20,20 +20,20 @@ class MessageManager extends BaseManager{
         let msg = byte.readUTF();
         let obj = JSON.parse(msg);
         
-        Tool.Log.info(`收到协议：${obj.key}`);
+        Log.info(`收到协议：${obj.key}`);
         this.noticeListener(obj.key,obj.body);
     }
 
     private onSocketError($e: egret.Event): void {
-        Tool.Log.warn("与服务器连接失败。");
+        Log.warn("与服务器连接失败。");
     }
 
     private onSocketClose($e: egret.Event): void {
-        Tool.Log.warn("与服务器断开连接。");
+        Log.warn("与服务器断开连接。");
     }
 
     private onSocketOpen($e: egret.Event): void {
-        Tool.Log.log("已连接到服务器。");
+        Log.log("已连接到服务器。");
     }
 
     /**
@@ -58,7 +58,7 @@ class MessageManager extends BaseManager{
      */
     public noticeListener($key:string,$body:any):void {
         if(!this._listenr[$key]) {
-            Tool.Log.warn(`${$key}:该协议不存在，无法通知。`);
+            Log.warn(`${$key}:该协议不存在，无法通知。`);
             return;
         }
         let listen = this._listenr[$key];
@@ -72,7 +72,7 @@ class MessageManager extends BaseManager{
      */
     public removeListener($key:string,$func?:Function):void {
         if(!this._listenr[$key]) {
-            Tool.Log.warn(`${$key}:该协议不存在，无法删除。`);
+            Log.warn(`${$key}:该协议不存在，无法删除。`);
             return;
         }
         //删除指定方法
@@ -104,7 +104,7 @@ class MessageManager extends BaseManager{
      * 发送数据
      */
     public send($data:any):void {
-        Tool.Log.info(`发送协议：${$data.key}`);
+        Log.info(`发送协议：${$data.key}`);
 
         let byte = new egret.ByteArray();
         let str = JSON.stringify($data);

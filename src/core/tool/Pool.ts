@@ -19,7 +19,7 @@ class Pool {
     public push($o:any):void {
         let className:string = $o["__proto__"]["__class__"];
         if(!this._objs[className]) {
-            Tool.Log.log("无该对象所在对象池，无法添加。");
+            Log.log("无该对象所在对象池，无法添加。");
             return;
         }
         this._objs[className].push($o);

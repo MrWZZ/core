@@ -2,7 +2,7 @@ abstract class Manager {
 
     //游戏初始化
     public static gameInit():void {
-        EC.addToWindow();
+        WxAdapter.addToWindow();
         this.Layer.addAllLayer();
     }
 

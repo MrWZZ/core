@@ -12,7 +12,7 @@ class ViewManager extends BaseManager {
      */
     public register($key: number, $view: BaseView): void {
         if (this._views[$key]) {
-            Tool.Log.log(`该视图已存在，无法重复注册。`);
+            Log.log(`该视图已存在，无法重复注册。`);
             return;
         }
         this._views[$key] = $view;
@@ -42,7 +42,7 @@ class ViewManager extends BaseManager {
 
     public getView($key: number): BaseView {
         if (!this._views[$key]) {
-            Tool.Log.error(`${$key}:该视图不存在。`)
+            Log.error(`${$key}:该视图不存在。`)
             return;
         }
         return this._views[$key];

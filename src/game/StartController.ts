@@ -4,8 +4,6 @@ class StartController extends BaseController {
 
     public constructor() {
         super();
-        this.registerFunc(StartFunc.openStartView,this.openStartView);
-        this.registerFunc(StartFunc.closeStartView,this.closeStartView);
     }
 
     public openStartView() {

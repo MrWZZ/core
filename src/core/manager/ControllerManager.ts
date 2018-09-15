@@ -17,7 +17,7 @@ class ControllerManager extends BaseManager{
      */
     public register($key:number):void{
         if(this._controllers[$key]) {
-            Tool.Log.log(`${$key}:该控制器已存在，无法重复注册。`);
+            Log.log(`${$key}:该控制器已存在，无法重复注册。`);
             return;
         }
         let name = EmController[$key];
@@ -30,7 +30,7 @@ class ControllerManager extends BaseManager{
      */
     public unregister($key):void {
         if(!this._controllers[$key]) {
-            Tool.Log.log(`${$key}:该控制器不存在，无法注销。`);
+            Log.log(`${$key}:该控制器不存在，无法注销。`);
             return;
         }
         delete this._controllers[$key];
@@ -42,7 +42,7 @@ class ControllerManager extends BaseManager{
      */
     public getController($key:number):BaseController {
         if($key == undefined && $key == null) {
-            Tool.Log.error("key值为空！");
+            Log.error("key值为空！");
             return;
         }
         //没有的话就先注册
@@ -60,7 +60,7 @@ class ControllerManager extends BaseManager{
      */
     public executeFunc($key:number,$funcKey:number,...$param:any[]):void {
         if($key == undefined && $key == null) {
-            Tool.Log.error("key值为空！");
+            Log.error("key值为空！");
             return;
         }
         //没有的话就先注册

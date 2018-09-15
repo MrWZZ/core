@@ -14,7 +14,7 @@
 		"bin-debug/core/base/BaseController.js",
 		"bin-debug/core/base/BaseManager.js",
 		"bin-debug/core/base/BaseView.js",
-		"bin-debug/core/manager/LayerManager.js",
+		"bin-debug/core/manager/MessageManager.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/core/base/BaseData.js",
 		"bin-debug/core/base/BaseLayer.js",
@@ -22,12 +22,10 @@
 		"bin-debug/core/base/BaseModel.js",
 		"bin-debug/core/base/BaseProxy.js",
 		"bin-debug/ThemeAdapter.js",
-		"bin-debug/core/const/EmController.js",
-		"bin-debug/core/const/SkinPath.js",
 		"bin-debug/core/manager/ControllerManager.js",
-		"bin-debug/Main.js",
+		"bin-debug/core/manager/LayerManager.js",
 		"bin-debug/core/manager/Manager.js",
-		"bin-debug/core/manager/MessageManager.js",
+		"bin-debug/Main.js",
 		"bin-debug/core/manager/StageManager.js",
 		"bin-debug/core/manager/ViewManager.js",
 		"bin-debug/core/tool/LinkList.js",
@@ -35,9 +33,11 @@
 		"bin-debug/core/tool/NoviceGuide.js",
 		"bin-debug/core/tool/Pool.js",
 		"bin-debug/core/tool/Random.js",
-		"bin-debug/core/tool/Tool.js",
 		"bin-debug/game/StartController.js",
 		"bin-debug/game/StartFunc.js",
-		"bin-debug/game/StartView.js"
+		"bin-debug/game/StartView.js",
+		"bin-debug/game/const/EmController.js",
+		"bin-debug/game/const/SkinPath.js",
+		"bin-debug/game/const/WxAdapter.js"
 	]
 }
