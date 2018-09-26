@@ -16,4 +16,20 @@ class CommonUtil {
         }
         return true;
     }
+
+    /**
+     * 根据两点获取一个向量（x、y的移动权重:-1 ~ 1）
+     * @param $beginPos 起始点
+     * @param $endPos 终点
+     */
+    public static getDirction($beginPos:[number,number],$endPos:[number,number]):[number,number] {
+        let offsetY = $endPos[1] - $beginPos[1];
+        let offsetX = $endPos[0] - $beginPos[0];
+        //象限判断
+        let dirX = offsetX >= 0 ? 1 : -1;
+        let dirY = offsetY >= 0 ? 1 : -1;
+        let angle = Math.abs(Math.atan(offsetY / offsetX));
+        return [dirX * Math.cos(angle),dirY * Math.sin(angle)];
+    }
+    
 }
