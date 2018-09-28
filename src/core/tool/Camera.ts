@@ -6,6 +6,7 @@ class Camera {
     private _ignore: egret.DisplayObject;
     //相机偏移
     private _offset: [number, number];
+    
 
     public get x() { return this.position[0] };
     public set x($x: number) { this.position = [$x, this._position[1]]; }
