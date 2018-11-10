@@ -1,10 +1,9 @@
 class StartView extends BaseView {
 
-    private imgBg:eui.Image;
-    private em:EasyMove;
+    private btnB:eui.Button;
 
-    public start():void {
-        this.em = new EasyMove(this,this.imgBg);
+    public start(): void {
+       let btm = NoviceGuide.shapeCutout(this.btnB);
+       Manager.Layer.guide.addChild(btm);
     }
-
 }

@@ -2,6 +2,7 @@ abstract class NoviceGuide {
 
     /**
      * 生成圆形镂空遮罩
+     * 需要放在不同的层，否则位置需要重新计算
      */
     public static shapeCutout($target:eui.Component):egret.DisplayObject {
 

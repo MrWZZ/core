@@ -31,7 +31,6 @@
 		"bin-debug/core/manager/MessageManager.js",
 		"bin-debug/core/manager/StageManager.js",
 		"bin-debug/core/manager/ViewManager.js",
-		"bin-debug/core/tool/An.js",
 		"bin-debug/core/tool/Astar.js",
 		"bin-debug/core/tool/Camera.js",
 		"bin-debug/core/tool/CommonUtil.js",
@@ -43,6 +42,7 @@
 		"bin-debug/core/tool/Random.js",
 		"bin-debug/game/StartController.js",
 		"bin-debug/game/StartFunc.js",
+		"bin-debug/game/StartRenender.js",
 		"bin-debug/Main.js"
 	]
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="StartRenenderSkin" width="400" height="200" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group width="372.73" height="200" anchorOffsetX="0" left="0" top="0">
+		<e:Image source="bg_jpg" left="0" right="0" top="0" bottom="0"/>
+		<e:Label id="txtCon" text="Label" textColor="0xed1212" anchorOffsetX="0" anchorOffsetY="0" x="251.52" y="28.79" scaleX="1" scaleY="1" width="121.21" height="71.21"/>
+	</e:Group>
+</e:Skin>
