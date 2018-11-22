@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="StartSkin" width="760" height="1280" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image id="imgBg" source="bg_jpg" height="1280" width="760" horizontalCenter="0" verticalCenter="0" touchEnabled="true"/>
-	<e:Button id="btnB" label="Button" x="330" y="547"/>
+	<e:Label id="txt" text="Label" x="365" y="489"/>
 </e:Skin>

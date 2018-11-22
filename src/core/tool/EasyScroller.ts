@@ -18,6 +18,11 @@ class EasyScroller {
     //滑动方向（-1：左（上），1：右（下））
     private scrollDir: number = 0;
 
+    /**
+     * @param $left 左（上）按钮
+     * @param $scroller 滑动容器
+     * @param $right 右（下）按钮
+     */
     public constructor($left: egret.DisplayObject, $scroller: eui.Scroller, $right: egret.DisplayObject) {
         this.left = $left;
         this.scroller = $scroller;
@@ -32,12 +37,57 @@ class EasyScroller {
         $right.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.touchEnd, this);
     }
 
+    /**
+     * 滑动到指定子控件位置
+     * @param $sInxex 子物体的所在的索引
+     */
+    public scrollToChildren($sInxex: number): void {
+        this.scroller.validateNow();
+        let viewport = this.scroller.viewport;
+        let curIcon = viewport.$children[$sInxex];
+        if(this.HV == 1) {
+            this.scrollToH(curIcon,viewport);
+        } else {
+            this.scrollToV(curIcon,viewport);
+        }
+    }
+
+    private scrollToH($curIcon:egret.DisplayObject,$viewport:eui.IViewport):void {
+        //目标图标移动到中心
+        let centerPos = $curIcon.x + $curIcon.width / 2 - this.scroller.width/2;
+        $viewport.scrollH = centerPos;
+        let maxWidth = $viewport.measuredWidth - $viewport.width;
+        //左边界不够
+        if($viewport.scrollH < 0) {
+            $viewport.scrollH = 0;
+        }
+        //右边界不够
+        else if($viewport.scrollH > maxWidth){
+            $viewport.scrollH = maxWidth;
+        }
+    }
+
+    private scrollToV($curIcon:egret.DisplayObject,$viewport:eui.IViewport):void {
+        //目标图标移动到中心
+        let centerPos = $curIcon.y + $curIcon.height / 2 - this.scroller.height/2;
+        $viewport.scrollV = centerPos;
+        let maxHeight = $viewport.measuredHeight - $viewport.height;
+        //上边界不够
+        if($viewport.scrollV < 0) {
+            $viewport.scrollV = 0;
+        }
+        //下边界不够
+        else if($viewport.scrollV > maxHeight){
+            $viewport.scrollV = maxHeight;
+        }
+    }
+
     private touchBegin($dir: number): void {
         this.scrollDir = $dir;
         if (this.HV == 1) {
             this.scroller.addEventListener(egret.Event.ENTER_FRAME, this.updateH, this);
-        } 
-        else if(this.HV == 2) {
+        }
+        else if (this.HV == 2) {
             this.scroller.addEventListener(egret.Event.ENTER_FRAME, this.updateV, this);
         }
     }
@@ -46,8 +96,8 @@ class EasyScroller {
         this.scrollDir = 0;
         if (this.HV == 1) {
             this.scroller.removeEventListener(egret.Event.ENTER_FRAME, this.updateH, this);
-        } 
-        else if(this.HV == 2) {
+        }
+        else if (this.HV == 2) {
             this.scroller.removeEventListener(egret.Event.ENTER_FRAME, this.updateV, this);
         }
     }
