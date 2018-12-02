@@ -26,23 +26,27 @@ class EasyMove {
     //当前对象的旋转角度
     private _currentBirdRotation: number = 0;
 
+    //点击的位置
+    public x;
+    public y;
     //移动速度
     public moveSpreed: number = 1;
     //是否能旋转
     public canRotate: boolean = true;
     //是否能缩放
     public canScale: boolean = true;
-    //监听事件
-    public beginListen: Function;
-    public moveListen: Function;
-    public endListen: Function;
+    //监听事件--obj:this作用域，fun:回调方法，arg:参数
+    public beginListen: {obj:any,fun:Function,arg:any[]};
+    public moveListen: {obj:any,fun:Function,arg:any[]};
+    public updataListen:{obj:any,fun:Function,arg:any[]};
+    public endListen: {obj:any,fun:Function,arg:any[]};
 
     /**
      * @param $listenObj 回调方法执行的环境、监听事件的对象
      * @param $moveObj 移动方法的物体
      */
-    public constructor($listenObj: any, $moveObj: any, $isDrayType: boolean = true) {
-        this.isDrayType = $isDrayType;
+    public constructor($listenObj: any, $moveObj: any, $json:JEasyMove = {}) {
+        this.isDrayType = $json.isDrayType ? $json.isDrayType : false;
         this.listenObj = $listenObj;
         this.moveObj = $moveObj;
         $listenObj.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
@@ -52,7 +56,7 @@ class EasyMove {
 
     private touchBegin($e: egret.TouchEvent): void {
         this.beginPos = [$e.stageX, $e.stageY];
-
+        this.setPosition($e.stageX,$e.stageY);
         if (this.isDrayType) {
             this.listenObj.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchDray, this);
         } else {
@@ -62,12 +66,12 @@ class EasyMove {
         // 多指操作
         this.mouseDown($e);
         //如果有回调则执行
-        this.beginListen ? this.beginListen.apply(this.listenObj) : null;
+        this.applyListenFun(this.beginListen);
     }
 
     private touchEnd($e: egret.TouchEvent): void {
         this.isMove = false;
-
+        this.setPosition($e.stageX,$e.stageY);
         if (this.isDrayType) {
             this.listenObj.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchDray, this);
         } else {
@@ -77,20 +81,22 @@ class EasyMove {
         // 多指操作
         this.mouseUp($e);
         //如果有回调则执行
-        this.endListen ? this.endListen.apply(this.listenObj) : null;
+        this.applyListenFun(this.endListen);
     }
 
     private touchMove($e: egret.TouchEvent): void {
+        this.setPosition($e.stageX,$e.stageY);
         this.endPos = [$e.stageX, $e.stageY];
         this.direction = this.getDirction(this.beginPos, this.endPos);
         this.isMove = true;
         // 多指操作
         this.mouseMove($e);
         //如果有回调则执行
-        this.moveListen ? this.moveListen.apply(this.listenObj) : null;
+        this.applyListenFun(this.moveListen);
     }
 
     private touchDray($e: egret.TouchEvent): void {
+        this.setPosition($e.stageX,$e.stageY);
         if (this.canMove) {
             this.endPos = [$e.stageX, $e.stageY];
             let offsetY = this.endPos[1] - this.beginPos[1];
@@ -103,7 +109,7 @@ class EasyMove {
         this.mouseMove($e);
 
         //如果有回调则执行
-        this.moveListen ? this.moveListen.apply(this.listenObj) : null;
+        this.applyListenFun(this.moveListen);
     }
 
     private update(): void {
@@ -111,6 +117,7 @@ class EasyMove {
             this.moveObj.x += this.direction[0] * this.moveSpreed;
             this.moveObj.y += this.direction[1] * this.moveSpreed;
         }
+        this.applyListenFun(this.updataListen);
     }
 
     //多指操作按下
@@ -193,6 +200,19 @@ class EasyMove {
         return [dirX * Math.cos(angle), dirY * Math.sin(angle)];
     }
 
+    //当前点击的位置
+    private setPosition(x:number,y:number) {
+        this.x = x;
+        this.y = y;
+    }
+
+    //调用回调方法
+    private applyListenFun(listen:{obj:any,fun:Function,arg:any[]}) {
+        if(listen) {
+           listen.fun.apply(listen.obj,listen.arg);
+        }
+    }
+
     //销毁该物体
     public destroy(): void {
         this.listenObj.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
@@ -201,4 +221,8 @@ class EasyMove {
         this.listenObj = null;
         this.moveObj = null;
     }
+}
+
+interface JEasyMove {
+    isDrayType?:boolean;
 }
