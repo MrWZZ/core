@@ -1,31 +1,28 @@
 class Pool {
 
-    private  _objs:{[key:string]:any[]} = {};
+    private static objs:{[key:string]:any[]} = {};
 
-    public pop<T>($type:string,...$param:any[]):T {
-        if(!this._objs[$type]) this._objs[$type] = [];
+    public static pop<T>(className:any,...arg:any[]):T {
+        if(!this.objs[className.name]) this.objs[className.name] = [];
         //获取对象
         let o:any;
-        if(this._objs[$type].length) {
-            o = this._objs[$type].pop();
+        if(this.objs[className.name].length) {
+            o = this.objs[className.name].pop();
         } else {
-            let fun = egret.getDefinitionByName($type);
-            o = new fun();
-            this._objs[$type].push(o);
+            o = className.prototype.constructor.apply(className,arg);
         }
         return <T>o;
     }
 
-    public push($o:any):void {
-        let className:string = $o["__proto__"]["__class__"];
-        if(!this._objs[className]) {
+    public static push(o:any):void {
+        if(!this.objs[o.name]) {
             Log.log("无该对象所在对象池，无法添加。");
             return;
         }
-        this._objs[className].push($o);
+        this.objs[o.name].push(o);
     }
 
-    public clear():void {
-        this._objs = {};
+    public static clear():void {
+        this.objs = {};
     }
 }
