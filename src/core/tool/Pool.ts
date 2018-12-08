@@ -9,7 +9,7 @@ class Pool {
         if(this.objs[className.name].length) {
             o = this.objs[className.name].pop();
         } else {
-            o = className.prototype.constructor.apply(className,arg);
+            o = new className(arg[0],arg[1],arg[2],arg[3],arg[4],arg[5])
         }
         return <T>o;
     }
