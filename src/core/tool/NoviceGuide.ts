@@ -35,28 +35,5 @@ abstract class NoviceGuide {
         return bmp;
     }
     
-    /**
-     * 指引图标
-     */
-    public static finger($target:eui.Component,$imgPath:string):egret.DisplayObject {
-        let globalPoint = $target.localToGlobal(0,0);
-
-        let img = new eui.Image();
-        img.touchEnabled = false;
-        img.width = 100;
-        img.height = 100;
-        img.x = globalPoint.x;
-        img.y = globalPoint.y;
-        img.source = $imgPath;
-
-        //缓动
-        let tw = egret.Tween.get(img,{loop:true});
-        let $offset:number = 50;
-        let $time:number = 1000;
-        tw.to({x:globalPoint.x + $offset,y:globalPoint.y + $offset},$time).wait(100)
-          .to({x:globalPoint.x,y:globalPoint.y},$time).wait(100);
-        
-        return img;
-    }
  
 }
