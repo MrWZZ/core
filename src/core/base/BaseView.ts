@@ -27,14 +27,9 @@ class BaseView extends eui.Component{
     private complete():void {
         this._complete = true;
         this.removeEventListener(eui.UIEvent.COMPLETE,this.complete,this);
-        this.addEventListener(egret.Event.ENTER_FRAME,this.firstFrame,this);
-    }
-
-    //加载完成后的第一帧
-    private firstFrame():void {
+        //调用页面的初始方法
         this.start();
         this.executeCompleteFunc();
-        this.removeEventListener(egret.Event.ENTER_FRAME,this.firstFrame,this);
     }
 
     private executeCompleteFunc():void {
